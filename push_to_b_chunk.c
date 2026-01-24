@@ -14,10 +14,14 @@ static void	process_chunk(t_stack *a, t_stack *b, int range[3])
 	while (is_in_chunk(a, range[0], range[1]))
 	{
 		if (a->top->index >= range[0] && a->top->index <= range[1])
+		{
 			handle_element_in_chunk(a, b, range[2]);
+		}
 		else
 		{
 			position = best_move_in_chunk(a, range[0], range[1]);
+			if (position == -1)
+				break ;
 			move_to_top_a(a, position);
 		}
 	}
@@ -25,22 +29,24 @@ static void	process_chunk(t_stack *a, t_stack *b, int range[3])
 
 static void	init_chunk_range(int range[3], int chunk, int size, int total)
 {
-	range[1] = (chunk + 1) * size - 1;
 	range[0] = chunk * size;
-	range[2] = (range[0] + range[1]) / 2;
+	range[1] = (chunk + 1) * size - 1;
 	if (range[1] >= total)
 		range[1] = total - 1;
+	range[2] = (range[0] + range[1]) / 2;
 }
 
 void	push_to_b_chunks(t_stack *a, t_stack *b, int total_size)
 {
 	int	chunk_size;
 	int	current_chunk;
+	int	num_chunks;
 	int	range[3];
 
 	chunk_size = get_chunk_size(total_size);
+	num_chunks = (total_size + chunk_size - 1) / chunk_size;
 	current_chunk = 0;
-	while (stack_size(a) > 0)
+	while (current_chunk < num_chunks && stack_size(a) > 0)
 	{
 		init_chunk_range(range, current_chunk, chunk_size, total_size);
 		process_chunk(a, b, range);

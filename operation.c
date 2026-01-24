@@ -2,12 +2,14 @@
 
 void	pb(t_stack *a, t_stack *b)
 {
-	int	value;
-
-	value = ft_pop(a);
-	if (value != -1)
-		ft_push(b, value);
+	push_node(a, b);
 	write(1, "pb\n", 3);
+}
+
+void	pa(t_stack *a, t_stack *b)
+{
+	push_node(b, a);
+	write(1, "pa\n", 3);
 }
 
 void	ra_b(t_stack *a)
@@ -36,14 +38,4 @@ void	rb(t_stack *b)
 {
 	ra_b(b);
 	write(1, "rb\n", 3);
-}
-
-void	pa(t_stack *a, t_stack *b)
-{
-	int	value;
-
-	value = ft_pop(b);
-	if (value != -1)
-		ft_push(a, value);
-	write(1, "pa\n", 3);
 }

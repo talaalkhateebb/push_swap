@@ -14,6 +14,18 @@ int	ft_pop(t_stack *s)
 	return (value);
 }
 
+void	push_node(t_stack *from, t_stack *to)
+{
+	t_node	*tmp;
+
+	if (!from->top)
+		return ;
+	tmp = from->top;
+	from->top = from->top->next;
+	tmp->next = to->top;
+	to->top = tmp;
+}
+
 int	ft_atoi(const char *str)
 {
 	int		i;
@@ -37,4 +49,11 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)(sign * result));
+}
+
+int	get_moves(int pos, int size)
+{
+	if (pos <= size / 2)
+		return (pos);
+	return (size - pos);
 }

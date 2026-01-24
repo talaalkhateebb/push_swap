@@ -17,8 +17,10 @@ typedef struct stack
 }	t_stack;
 
 void	ft_push(t_stack *s, int value);
+void	push_node(t_stack *from, t_stack *to);
 int		ft_pop(t_stack *s);
 int		ft_atoi(const char *str);
+int		get_moves(int pos, int size);
 void	sa(t_stack *a);
 void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
